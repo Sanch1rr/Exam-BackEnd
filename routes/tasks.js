@@ -14,8 +14,9 @@ router.get("/", async (req, res) => {
   try {
     const tasks = await Task.find();
     res.send(tasks);
-  } catch (error) {}
-  res.send(error);
+  } catch (error) {
+    res.send(error);
+  }
 });
 
 router.put("/:id", async (req, res) => {
