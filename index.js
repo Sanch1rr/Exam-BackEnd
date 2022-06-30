@@ -1,15 +1,20 @@
 const tasks = require("./routes/tasks");
-const connection = require("./db");
 const cors = require("cors");
 const express = require("express");
+const { default: mongoose } = require("mongoose");
 const app = express();
-
-connection();
 
 app.use(express.json());
 app.use(cors());
 
 app.use("/api/tasks", tasks);
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Listening on ${port}...`));
+mongoose
+  .connect(
+    "mongodb+srv://admin:sanchir12345@cluster0.v1tocnc.mongodb.net/Todo?retryWrites=true&w=majority"
+  )
+  .then(() => app.listen(5000))
+  .then(() =>
+    console.log("connected to database and listening to localhost 5000")
+  )
+  .catch((err) => console.log(err));
